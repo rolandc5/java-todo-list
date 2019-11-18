@@ -1,23 +1,24 @@
 package roland;
 
 import org.json.simple.JSONObject;
-import static spark.Spark.get;
+import static spark.Spark.*;
 
 public class roland {
 
-    static class Todo {
-        public void put(String s) {
-        }
-    }
-
     public static void main(String... arr) {
-        JSONObject obj = new JSONObject();
-        get("/hello", (request, response) -> {
+        port(8080);
+        get("/", (request, response) -> {
+            System.out.println("/");
+            response.status(200);
+            return "This API is Working.";
+        });
+        get("/create", (request, response) -> {
+            System.out.println("/create");
+            JSONObject obj = new JSONObject();
             obj.put("name", "Roland Canuto");
             obj.put("age", 25);
-            System.out.println("/hello");
-            response.type("application/json");
-            response.status(200);
+            obj.put("name", "omg");
+            obj.put("age", 22);
             return obj;
         });
     }
